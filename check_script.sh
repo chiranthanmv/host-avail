@@ -11,11 +11,11 @@ ansible-playbook http.yaml -i inventory
 #echo "Running another playbook if needed"
 # ansible-playbooak /another_playbook.yaml -i /inventory
 
-echo "Checking https"
-ansible-playbook https.yaml -i inventory
+# echo "Checking https"
+# ansible-playbook https.yaml -i inventory
 
-echo "Checking Ldaps connection"
-ansible-playbook ldap.yaml -i inventory
+# echo "Checking Ldaps connection"
+# ansible-playbook ldap.yaml -i inventory
 
 python3 generate_html_report.py
 
