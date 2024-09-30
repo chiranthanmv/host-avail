@@ -3,7 +3,7 @@
 source /opt/venv/bin/activate
 # Run each playbook
 echo "Checking ping"
-ansible-playbook ping.yaml -i lo
+ansible-playbook ping.yaml -i inventory
 
 echo "Checking http"
 ansible-playbook http.yaml -i inventory
