@@ -1,0 +1,69 @@
+- name: Check LDAPS Connectivity Using curl
+  hosts: hmc
+  gather_facts: false
+  vars:
+    ansible_user: admin1
+    ansible_password: admin
+    success_list: []
+    failure_list: []
+  vars_files:
+    - hostnames.var
+
+  tasks:
+    - name: Check each URL
+      block:
+        - name: Perform curl request
+          shell: curl -s ldaps://{{ item }}:636 > /dev/null && echo "succeeded" || echo "Failed"
+          loop: "{{ hostnames_ldaps }}"
+          register: http_result
+          failed_when: false
+          ignore_errors: true
+
+    - name: Categorize results
+      set_fact:
+          success_list: "{{ success_list + [item.item] if 'succeeded' in item.stdout else success_list }}"
+          failure_list: "{{ failure_list + [item.item] if 'succeeded' not in item.stdout else failure_list }}"
+      loop: "{{ http_result.results }}"
+      no_log: true
+
+    - name: Log successful curl (ldaps)
+      lineinfile:
+        path: results_ldap.log
+        create: yes
+        insertafter: EOF
+        line: "Successful curl(http):"
+      delegate_to: localhost
+
+    - name: Log each successful curl (ldaps)
+      lineinfile:
+        path: results_ldap.log
+        create: yes
+        insertafter: EOF
+        line: "- {{ item }}"
+      loop: "{{ success_list }}"
+      delegate_to: localhost
+
+    - name: Add newline to log file
+      lineinfile:
+        path: results_ldap.log
+        create: yes
+        insertafter: EOF
+        line: ""
+      delegate_to: localhost
+
+    - name: Log failed curl
+      lineinfile:
+        path: results_ldap.log
+        create: yes
+        insertafter: EOF
+        line: "Failed curl(http):"
+      delegate_to: localhost
+
+    - name: Log each failed curl
+      lineinfile:
+        path: results_ldap.log
+        create: yes
+        insertafter: EOF
+        line: "- {{ item }}"
+      loop: "{{ failure_list }}"
+      delegate_to: localhost

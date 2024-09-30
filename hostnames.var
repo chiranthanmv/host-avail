@@ -1,0 +1,73 @@
+hostnames_http:
+
+ - w3codesignprod.sos.ibm.com
+ - plugins.gradle.org
+ - slack.com
+ - download.docker.com
+ - security.ubuntu.com
+ - archive.ubuntu.com
+ - help.ubuntu.com
+ - k8s.gcr.io
+ - github.com
+ - registry-1.docker.io
+ - services.gradle.org
+ - c65u01-vm6.pok.stglabs.ibm.com
+ - ibm.ent.box.com
+ - nodejs.org
+ - jcenter.bintray.com
+ - na.artifactory.swg-devops.com
+ - rchgit01.rchland.ibm.com
+ - dl.k8s.io
+ - pkgs.k8s.io
+ - registry.npmjs.org
+
+hostnames_https:
+
+ - w3codesignprod.sos.ibm.com
+ - plugins.gradle.org
+ - jcenter.bintray.com
+ - slack.com
+ - na.artifactory.swg-devops.com
+ - hmcnfs.aus.stglabs.ibm.com
+ - dl.k8s.io
+ - github.com
+ - ibm.ent.box.com
+ - nodejs.org
+ - registry.npmjs.org
+ - download.docker.com
+ - rchgit01.rchland.ibm.com
+ - pkgs.k8s.io
+ - k8s.gcr.io
+ - registry-1.docker.io
+ - services.gradle.org
+
+hostnames_ping:
+
+ - w3codesignprod.sos.ibm.com
+ - plugins.gradle.org
+ - ntp.ubuntu.com
+ - download.docker.com
+ - na.artifactory.swg-devops.com
+ - rchgit01.rchland.ibm.com
+ - jazz07.rchland.ibm.com
+ - archive.canonical.com
+ - hmcnfs.aus.stglabs.ibm.com
+ - archive.ubuntu.com
+ - help.ubuntu.com
+ - security.ubuntu.com
+ - dl.k8s.io
+ - pkgs.k8s.io
+ - k8s.gcr.io
+ - github.com
+ - github.ibm.com
+ - galaxy.ansible.com
+ - c65u01-vm6.pok.stglabs.ibm.com
+ - bluepages.ibm.com
+ - services.gradle.org
+ - ibm.ent.box.com
+ - nodejs.org
+ - registry.npmjs.org
+
+hostnames_ldaps:
+
+ - bluepages.ibm.com

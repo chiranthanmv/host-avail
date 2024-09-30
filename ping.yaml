@@ -1,0 +1,82 @@
+- name: Ping Hostnames
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_user: admin1
+    ansible_password: admin
+  vars_files:
+    - hostnames.var
+
+  tasks:
+    - name: Ping each hostname
+      shell: ping -c 1 "{{ item }}"
+      loop: "{{ hostnames_ping }}"
+      register: ping_result
+      ignore_errors: true
+
+    - name: Initialize lists for successful and failed pings
+      set_fact:
+        success_list: []
+        failure_list: []
+
+    - name: Categorize ping results
+      set_fact:
+        success_list: "{{ success_list + [item.item] if item.rc == 0 else success_list }}"
+        failure_list: "{{ failure_list + [item.item] if item.rc != 0 else failure_list }}"
+      loop: "{{ ping_result.results }}"
+      no_log: true
+    
+    - name: Get current date and time
+      command: date +"%Y-%m-%d %H:%M:%S"
+      register: current_datetime
+      delegate_to: localhost
+
+    - name: Add heading to log file
+      lineinfile:
+        path: results_ping.log
+        create: yes
+        insertafter: EOF
+        line: "===== Run at {{ current_datetime.stdout }} ====="
+      delegate_to: localhost
+
+    - name: Log successful pings
+      lineinfile:
+        path: results_ping.log
+        create: yes
+        insertafter: EOF
+        line: "Successful pings:"
+      delegate_to: localhost
+
+    - name: Log each successful ping
+      lineinfile:
+        path: results_ping.log
+        create: yes
+        insertafter: EOF
+        line: "- {{ item }}"
+      loop: "{{ success_list }}"
+      delegate_to: localhost
+
+    - name: Add newline to log file (before successful pings)
+      lineinfile:
+        path: results_ping.log
+        create: yes
+        insertafter: EOF
+        line: ""
+      delegate_to: localhost
+
+    - name: Log failed pings
+      lineinfile:
+        path: results_ping.log
+        create: yes
+        insertafter: EOF
+        line: "Failed pings:"
+      delegate_to: localhost
+
+    - name: Log each failed ping
+      lineinfile:
+        path: results_ping.log
+        create: yes
+        insertafter: EOF
+        line: "- {{ item }}"
+      loop: "{{ failure_list }}"
+      delegate_to: localhost
