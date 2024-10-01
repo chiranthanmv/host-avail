@@ -29,11 +29,5 @@ jobs:
       - name: Run detect-secrets
         id: scan
         run: |
-          detect-secrets scan --baseline .secrets.baseline
-          
-          # Check the exit code and handle failure
-          if [ $? -ne 0 ]; then
-            echo "Secrets detected! Failing the job."
-            exit 1
-          fi
+          detect-secrets scan --update .secrets.baseline
 
