@@ -28,4 +28,4 @@ jobs:
 
     - name: Run detect-secrets
       run: |
-        detect-secrets audit .secrets.baseline
+        detect-secrets audit .github/workflows/.secrets.baseline
