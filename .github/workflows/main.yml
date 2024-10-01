@@ -39,9 +39,6 @@ jobs:
         id: audit
         run: |
           output=$(detect-secrets audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline 2>&1) || true
-
-      - name: Check audit results
-        run: |
           if echo "$output" | grep -q "All checks have passed"; then
             echo "All checks have passed."
           else
