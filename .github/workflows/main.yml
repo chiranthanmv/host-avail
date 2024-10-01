@@ -41,6 +41,7 @@ jobs:
           output=$(detect-secrets audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline 2>&1) || true
           if echo "$output" | grep -q "All checks have passed"; then
             echo "All checks have passed."
+            echo "$output"
           else
             echo "$output"
             exit 1
