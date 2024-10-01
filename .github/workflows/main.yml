@@ -35,16 +35,16 @@ jobs:
             echo ".secrets.baseline is valid JSON."
           fi
 
-      - name: Run detect-secrets
-        id: scan
+      - name: Run detect-secrets audit
+        id: audit
         run: |
-          detect-secrets audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline > audit_output.txt || echo "Audit completed with issues."
-      
-      - name: Check for secrets in output
+          output=$(detect-secrets audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline 2>&1) || true
+
+      - name: Check audit results
         run: |
-          if grep -q "All checks have passed" audit_output.txt; then
-            echo "All checks have passed No secrets found"
-            exit 1  # Fail the workflow
+          if echo "$output" | grep -q "All checks have passed"
+            echo "All checks have passed."
           else
-            cat audit.txt
+            echo "$output"
+            exit 1
           fi
