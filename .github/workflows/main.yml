@@ -26,12 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install detect-secrets
 
-    - name: Create baseline if not exists
-      run: |
-        if [ ! -f .secrets.baseline ]; then
-          detect-secrets scan > .secrets.baseline
-        fi
-
     - name: Run detect-secrets
       run: |
-        detect-secrets audit .secrets.baseline
+        detect-secrets audit .secrets.baseline --all
