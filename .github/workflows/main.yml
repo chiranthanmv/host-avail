@@ -42,7 +42,7 @@ jobs:
 
       - name: Check audit results
         run: |
-          if echo "$output" | grep -q "All checks have passed"
+          if echo "$output" | grep -q "All checks have passed"; then
             echo "All checks have passed."
           else
             echo "$output"
