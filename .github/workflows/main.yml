@@ -38,5 +38,13 @@ jobs:
       - name: Run detect-secrets
         id: scan
         run: |
-          detect-secrets scan --update .secrets.baseline
+          detect-secrets audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline >> audit_output.txt
 
+      - name: Check for secrets in output
+        run: |
+          if grep -q "All checks have passed" audit_output.txt; then
+            echo "All checks have passed No secrets found"
+            exit 1  # Fail the workflow
+          else
+            cat audit.txt
+          fi
