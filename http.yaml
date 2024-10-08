@@ -1,5 +1,5 @@
 - name: Netcat(http) the hostnames
-  hosts: localhost
+  hosts: hmc
   gather_facts: false
   vars:
     ansible_user: admin1
