@@ -185,6 +185,20 @@ def process_file(file_path):
     file_name = os.path.splitext(os.path.basename(file_path))[0]
     return file_name, https_results, timestamp
 
+def filter_and_store_failed_results(all_results):
+    failed_results = {}
+    for filename, results in all_results.items():
+        if results.get('failure'):
+            failed_results[filename] = results['failure']
+
+    if failed_results:
+        try:
+            with open("failure_results.json", 'w') as file:
+                json.dump(failed_results, file, indent=4)
+        except IOError as e:
+            print(f"Error writing to file: {e}")
+
+
 # List of files to process
 files_to_process = ['results_ping.log', 'results_http.log', 'results_https.log', 'results_ldap.log']
 all_results = {}
@@ -199,3 +213,4 @@ for file_path in files_to_process:
         print(f"File {file_path} does not exist.")
 
 generate_html(all_results, timestamp_info)
+filter_and_store_failed_results(all_results)
