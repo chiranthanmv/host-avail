@@ -22,6 +22,6 @@ python3 generate_html_report.py
 #cat results_ping.log
 cat results_ping.log
 cat results_http.log
-# cat results_https.log
-# cat results_ldap.log
+cat results_https.log
+cat results_ldap.log
 #(cat results_ping.log; echo ""; cat results_http.log) > results.log
