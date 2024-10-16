@@ -40,7 +40,6 @@ hostnames_https:
  - k8s.gcr.io
  - registry-1.docker.io
  - services.gradle.org
- - jhlbjjjbj
 
 hostnames_ping:
 
@@ -68,7 +67,6 @@ hostnames_ping:
  - ibm.ent.box.com
  - nodejs.org
  - registry.npmjs.org
- - jhlbjjjbj
 
 hostnames_ldaps:
 
