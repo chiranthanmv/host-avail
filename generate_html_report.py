@@ -1,4 +1,5 @@
 import os
+import json
 
 def generate_html(all_results, timestamp_info, output_file='task_report.html'):
     timestamp = timestamp_info['results_ping']
